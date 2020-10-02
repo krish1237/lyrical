@@ -1,10 +1,9 @@
-#TODO: TOKEN FROM ENVIRONMENT
-DISCORD_TOKEN = "TOKEN_FROM_DISCORD"
+from settings import DISCORD_TOKEN
 
 import discord
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 class LyricalClient(discord.Client):
 
