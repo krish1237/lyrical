@@ -16,7 +16,7 @@ class LyricalClient(discord.Client):
             return
         if(text.startswith("&")):
             text = message.content[1:].strip()
-            await message.channel.send("I have seen what you said and choose to ignore it :)")
+            await message.channel.send("I have decided to be good today. But I'm not intelligent enough to reply. Blame Krish :(")
             # print(text)
         else:
             return

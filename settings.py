@@ -5,4 +5,3 @@ import os
 DISCORD_TOKEN = os.getenv("DISCORD_LYRICAL_TOKEN")
 
 AZLYRICS_URL = "https://www.azlyrics.com"
-
