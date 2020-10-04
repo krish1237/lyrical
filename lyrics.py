@@ -1,14 +1,33 @@
-from settings import AZLYRICS_URL
-
-# TODO : query constructors
-# def query_constructor_azlyrics(name, artist= None):
-    
+from settings import GENIUS_BASE_URL, LYRICAL_KEY
 import requests
 from bs4 import BeautifulSoup
 
-response = requests.get("https://www.azlyrics.com/lyrics/alanwalker/lily.html")
+def search_genius(name):
+    search_url = GENIUS_BASE_URL + "/search"
+    querystring = {"q":name}
 
-soup = BeautifulSoup(response.content, 'html.parser')
+    headers = {
+        'x-rapidapi-host': "genius.p.rapidapi.com",
+        'x-rapidapi-key': LYRICAL_KEY
+        }
 
-#APPARENTLY FUCKIN ILLEGAL AND CROSS DOMAIN ISSUES
-print(soup)
+    response = requests.request("GET", search_url, headers=headers, params=querystring)
+    return response
+
+def get_lyrics_url(name):
+    response = search_genius(name)
+    response = response.json()
+    song_data_list = response["response"]["hits"]
+    song_data = song_data_list[0]["result"]
+    song_lyrics_url = song_data["url"]
+    return song_lyrics_url    
+   
+def get_lyrics(name):
+    url = get_lyrics_url(name)
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text,"html.parser")
+    lyrics = soup.find("div",class_="lyrics").get_text()
+    return lyrics
+
+# lyrics = get_lyrics("Everything at once")
+# print(lyrics)

@@ -1,10 +1,12 @@
 from settings import DISCORD_TOKEN
+from lyrics import get_lyrics
 
 import discord
 import logging
 
 logging.basicConfig(level=logging.INFO)
 
+#TODO Handle Errors
 class LyricalClient(discord.Client):
 
     async def on_ready(self):
@@ -16,7 +18,8 @@ class LyricalClient(discord.Client):
             return
         if(text.startswith("&")):
             text = message.content[1:].strip()
-            await message.channel.send("I have decided to be good today. But I'm not intelligent enough to reply. Blame Krish :(")
+            lyrics = get_lyrics(text)
+            await message.channel.send(lyrics)
             # print(text)
         else:
             return
