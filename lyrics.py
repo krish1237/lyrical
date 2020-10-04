@@ -26,7 +26,7 @@ def get_lyrics(name):
     url = get_lyrics_url(name)
     response = requests.get(url)
     soup = BeautifulSoup(response.text,"html.parser")
-    lyrics = soup.find("div",class_="lyrics").get_text()
+    lyrics = soup.find("div", class_="lyrics").get_text()
     return lyrics
 
 # lyrics = get_lyrics("Everything at once")

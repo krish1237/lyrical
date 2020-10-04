@@ -17,14 +17,20 @@ class LyricalClient(discord.Client):
         if(message.author == self.user):
             return
         if(text.startswith("&")):
-            text = message.content[1:].strip()
-            lyrics = get_lyrics(text)
-            await message.channel.send(lyrics)
-            # print(text)
+            try:
+                text = message.content[1:].strip()
+                lyrics = get_lyrics(text)
+                if(len(lyrics) >= 2000):
+                    lyrics_1 = lyrics[:2000]
+                    lyrics_2 = lyrics[2000:]
+                    await message.channel.send(lyrics_1)
+                    await message.channel.send(lyrics_2)
+                    return
+                await message.channel.send(lyrics)
+            except:
+                await message.channel.send("Some error occured. My developers are lazy asses who can't handle errors properly. Please try again")
         else:
             return
-            # await message.channel.send("I don't eavesdrop! Or do I?")
-            # print("I don't eavesdrop!")
 
 client = LyricalClient()
 
