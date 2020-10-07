@@ -20,14 +20,16 @@ class LyricalClient(discord.Client):
             try:
                 text = message.content[1:].strip()
                 lyrics = get_lyrics(text)
-                if(len(lyrics) >= 2000):
-                    lyrics_1 = lyrics[:2000]
-                    lyrics_2 = lyrics[2000:]
-                    await message.channel.send(lyrics_1)
-                    await message.channel.send(lyrics_2)
-                    return
-                await message.channel.send(lyrics)
-            except:
+                if lyrics != "":
+                    if(len(lyrics) >= 2000):
+                        lyrics_1 = lyrics[:2000]
+                        lyrics_2 = lyrics[2000:]
+                        await message.channel.send(lyrics_1)
+                        await message.channel.send(lyrics_2)
+                    else:
+                        await message.channel.send(lyrics)
+            except Exception as e:
+                logging.error(e)
                 await message.channel.send("Some error occured. My developers are lazy asses who can't handle errors properly. Please try again")
         else:
             return
