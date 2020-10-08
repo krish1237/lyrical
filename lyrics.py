@@ -36,19 +36,25 @@ def scrape_lyrics(url):
     return lyrics
    
 def get_lyrics(name):
-    url = get_lyrics_url(name)
+    try:
+        url = get_lyrics_url(name)
+    except IndexError:
+        logging.error("Lyrics not found")
+        return "Lyrics not found" 
     logging.info("Scraping URL for lyrics")
     count = 0
     lyrics = ""
     while(count != 5):
         try:
-            logging.info("Scraping Lyrics attempt:"+str(count))
+            logging.info("Scraping Lyrics attempt:"+str(count+1))
             lyrics = scrape_lyrics(url)
+            count = 5
         except:
             count+=1
+            logging.info("Lyrics Scraping Failed. Trying again...")
             if(count == 5):
                 raise ValueError
-            pass
+            continue
         break
     logging.info("Lyrics found")
     return lyrics

@@ -27,7 +27,7 @@ class LyricalClient(discord.Client):
                         await message.channel.send(lyrics_1)
                         await message.channel.send(lyrics_2)
                     else:
-                        await message.channel.send(lyrics)
+                        await message.channel.send(lyrics)                
             except Exception as e:
                 logging.error(e)
                 await message.channel.send("Some error occured. My developers are lazy asses who can't handle errors properly. Please try again")
