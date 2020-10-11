@@ -58,6 +58,3 @@ def get_lyrics(name):
         break
     logging.info("Lyrics found")
     return lyrics
-
-# lyrics = get_lyrics("Everything at once")
-# print(lyrics)
